@@ -30,3 +30,12 @@ class GetItem(APIView):
       return Response(ItemSerializer(target).data)
     else:
       return Response(status=404)
+
+class GetItems(APIView):
+  def get(self, req):
+    return Response(ItemSerializer(Item.objects.all(), many=True).data)
+
+class GetItemsWithSection(APIView):
+  def get(self, req, sectionnumber):
+    idx = sectionnumber*15
+    return Response(ItemSerializer(Item.objects.all()[idx : idx + 15], many=True).data)
