@@ -3,6 +3,7 @@ from django.contrib import auth
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from django.db.models import Q
 
 from core.utils import loginDecorator
 from .models import Item
@@ -13,10 +14,10 @@ class AddItem(APIView):
     data = json.loads(req.body.decode('utf-8'))
     item = Item.objects.create_item(
       title = data['title'],
-      categroy = data['category'],
+      category = data['category'],
       seller = data['seller'],
       price = data['price'],
-      discountedPrice = data['dPrice'],
+      discountedPrice = data['discountedPrice'],
       hashtags = data['hashtags'],
       thumb = data['thumb'],
       detail = data['detail']
@@ -39,3 +40,9 @@ class GetItemsWithSection(APIView):
   def get(self, req, sectionnumber):
     idx = sectionnumber*15
     return Response(ItemSerializer(Item.objects.all()[idx : idx + 15], many=True).data)
+
+class GetItemsWithCategory(APIView):
+  def get(self, req, categorynumber):
+    if (categorynumber == 0):
+      return Response(ItemSerializer(Item.objects.all(), many=True).data)
+    return Response(ItemSerializer(Item.objects.filter(Q(category=categorynumber)), many=True).data)

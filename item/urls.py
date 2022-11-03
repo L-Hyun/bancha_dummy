@@ -6,4 +6,5 @@ urlpatterns = [
   path('get/<int:itemnumber>', views.GetItem.as_view()),
   path('get', views.GetItems.as_view()),
   path('getSection/<int:sectionnumber>', views.GetItemsWithSection.as_view()),
+  path('getCategory/<int:categorynumber>', views.GetItemsWithCategory.as_view())
 ]

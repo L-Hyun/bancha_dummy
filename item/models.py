@@ -11,7 +11,7 @@ class ItemManager(models.Manager):
     
     item = self.model(
       title = title,
-      categroy = category,
+      category = category,
       seller = seller,
       price = price,
       discountedPrice = discountedPrice,
@@ -31,8 +31,8 @@ class Item(models.Model):
   price = models.IntegerField(verbose_name="가격", default=0)
   discountedPrice = models.IntegerField(verbose_name="할인가", default=0)
   hashtags = models.CharField(max_length=50, verbose_name="해쉬태그")
-  thumb = models.ImageField(upload_to="items/thumb", blank=True)
-  detail = models.ImageField(upload_to="items/detail", blank=True)
+  thumb = models.TextField(verbose_name="썸네일")
+  detail = models.TextField(verbose_name="상세")
 
   objects = ItemManager()
 
