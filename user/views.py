@@ -13,6 +13,7 @@ class Register(APIView):
     data = json.loads(request.body.decode('utf-8'))
     user = User.objects.create_user(
       email = data["email"],
+      nickname = data['nickname'],
       password = data['password']
     )
     token = Token.objects.create(user=user)
@@ -59,7 +60,6 @@ class GetUser(APIView):
 
 class chk(APIView):
   def get(self, req):
-    print(Token.objects.all())
     return Response(UserSerializer(User.objects.all(), many=True).data)
 
 class getToken(APIView):

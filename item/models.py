@@ -1,7 +1,7 @@
 from django.db import models
 
 class ItemManager(models.Manager):
-  def create_item(self, title, category, seller, price, dPrice, tags, thu, det):
+  def create_item(self, title, category, seller, price, discountedPrice, hashtags, thumb, detail):
     if (not title):
       raise ValueError("must have title")
     if (not category):
@@ -14,10 +14,10 @@ class ItemManager(models.Manager):
       categroy = category,
       seller = seller,
       price = price,
-      discountedPrice = dPrice,
-      hashtags = tags,
-      thumb = thu,
-      detail = det
+      discountedPrice = discountedPrice,
+      hashtags = hashtags,
+      thumb = thumb,
+      detail = detail
     )
 
     item.save()
@@ -27,7 +27,7 @@ class Item(models.Model):
   item_id = models.AutoField(primary_key=True)
   title = models.CharField(max_length=50, verbose_name="아이템 제목")
   category = models.IntegerField(verbose_name="카테고리")
-  seller = models.IntegerField(verbose_name="판매자 번호")
+  seller = models.CharField(max_length=255, verbose_name="판매자 닉네임")
   price = models.IntegerField(verbose_name="가격", default=0)
   discountedPrice = models.IntegerField(verbose_name="할인가", default=0)
   hashtags = models.CharField(max_length=50, verbose_name="해쉬태그")

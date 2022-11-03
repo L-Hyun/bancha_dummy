@@ -10,8 +10,8 @@ from .serializers import ItemSerializer
 
 class AddItem(APIView):
   def post(self, req):
-    data = json.objects.loads(req.body.decode('utf-8'))
-    item = Item.create_item(
+    data = json.loads(req.body.decode('utf-8'))
+    item = Item.objects.create_item(
       title = data['title'],
       categroy = data['category'],
       seller = data['seller'],
@@ -21,10 +21,10 @@ class AddItem(APIView):
       thumb = data['thumb'],
       detail = data['detail']
     )
-    return Response(status=200)
+    return Response(ItemSerializer(item).data)
 
-class getItem(APIView):
-  def get(self, itemnumber):
+class GetItem(APIView):
+  def get(self, req, itemnumber):
     target = Item.objects.get(item_id=itemnumber)
     if (target is not None):
       return Response(ItemSerializer(target).data)

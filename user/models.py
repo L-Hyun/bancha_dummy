@@ -2,11 +2,12 @@ from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 class UserManger(BaseUserManager):
-  def create_user(self, email, password):
+  def create_user(self, email, password, nickname):
     if (not email):
       return "Must Have Email"
     user = self.model(
       email = self.normalize_email(email),
+      nickname = nickname,
       point = 0
     )
     user.set_password(password)
