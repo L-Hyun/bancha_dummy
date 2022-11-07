@@ -72,3 +72,21 @@ class getU(APIView):
     print(User.objects.get(user_id=usernumber))
     print(type(User.objects.get(user_id=usernumber)))
     return Response(UserSerializer(User.objects.get(user_id = usernumber)).data)
+
+class verifyEmail(APIView):
+  def post(self, request):
+    data = json.loads(request.body)
+    try:
+      user = User.objects.get(email=data['email'])
+      return Response({"isValid": False})
+    except:
+      return Response({"isValid": True})
+
+class verifyNickname(APIView):
+  def post(self, request):
+    data = json.loads(request.body)
+    try:
+      user = User.objects.get(nickname=data['nickname'])
+      return Response({"isValid": False})
+    except:
+      return Response({"isValid": True})

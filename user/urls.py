@@ -9,5 +9,8 @@ urlpatterns = [
 
   path('chk', views.chk.as_view()),
   path('gett/<int:usernumber>', views.getToken.as_view()),
-  path('getu/<int:usernumber>', views.getU.as_view())
+  path('getu/<int:usernumber>', views.getU.as_view()),
+
+  path('verifyEmail', views.verifyEmail.as_view()),
+  path('verifyNickname', views.verifyNickname.as_view()),
 ]
